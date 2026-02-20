@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaHeart, FaStar, FaShoppingCart } from 'react-icons/fa';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useToast } from '../../../Toast/Toast';
+import { addToCart } from '../../../../utils/cartUtils';
 
 const products = [
     {
@@ -55,16 +57,17 @@ const cardVariants = {
 };
 
 const ProductCarousel = () => {
+    const { showToast } = useToast();
     const [index, setIndex] = useState(0);
 
     const nextSlide = () => setIndex((index + 1) % products.length);
     const prevSlide = () => setIndex((index - 1 + products.length) % products.length);
 
     return (
-        <div className="relative py-10 bg-slate-50 w-[900px] flex justify-end mx-auto -top-80 left-72 shadow-lg">
-            <div className="flex justify-center items-center px-4">
-                <button onClick={prevSlide} className="p-3 bg-white shadow rounded">
-                    <IoIosArrowBack size={24} />
+        <div className="relative py-10 bg-slate-50 w-full max-w-7xl mx-auto -mt-80 sm:-mt-60 md:-mt-40 lg:-mt-20 shadow-lg px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+            <div className="flex justify-center items-center gap-2 sm:gap-4 overflow-x-hidden">
+                <button onClick={prevSlide} className="p-2 sm:p-3 bg-white shadow rounded hover:bg-gray-50 transition-colors">
+                    <IoIosArrowBack size={20} className="sm:w-6 sm:h-6" />
                 </button>
 
                 <AnimatePresence mode="wait">
@@ -73,7 +76,7 @@ const ProductCarousel = () => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-6xl"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl"
                     >
                         {[...Array(3)].map((_, i) => {
                             const product = products[(index + i) % products.length];
@@ -85,12 +88,12 @@ const ProductCarousel = () => {
                                     className="border rounded-lg p-4 relative shadow-sm bg-white"
                                 >
                                     {/* SALE Badge */}
-                                    <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                                    <span className="absolute top-2 left-2 bg-[#d44145] text-white text-xs px-2 py-1 rounded">
                                         SALE
                                     </span>
 
                                     {/* Favorite */}
-                                    <button className="absolute top-2 right-2 text-gray-500 hover:text-red-500">
+                                    <button className="absolute top-2 right-2 text-gray-500 hover:text-[#d44145]">
                                         <FaHeart />
                                     </button>
 
@@ -113,13 +116,19 @@ const ProductCarousel = () => {
 
                                     {/* Price */}
                                     <div className="flex justify-center gap-2 mt-2">
-                                        <span className="text-red-600 font-bold">${product.price.toFixed(2)}</span>
+                                        <span className="text-[#d44145] font-bold">${product.price.toFixed(2)}</span>
                                         <span className="line-through text-gray-400">${product.oldPrice.toFixed(2)}</span>
                                     </div>
 
                                     {/* Add to Cart */}
                                     <div className="flex justify-center mt-4">
-                                        <button className="p-2 bg-gray-100 rounded hover:bg-red-500 hover:text-white transition">
+                                        <button 
+                                            onClick={() => {
+                                                addToCart(product, 1);
+                                                showToast(`${product.title} added to cart!`, 'success');
+                                            }}
+                                            className="p-2 bg-gray-100 rounded hover:bg-[#d44145] hover:text-white transition"
+                                        >
                                             <FaShoppingCart />
                                         </button>
                                     </div>
@@ -129,8 +138,8 @@ const ProductCarousel = () => {
                     </motion.div>
                 </AnimatePresence>
 
-                <button onClick={nextSlide} className="p-3 bg-white shadow rounded">
-                    <IoIosArrowForward size={24} />
+                <button onClick={nextSlide} className="p-2 sm:p-3 bg-white shadow rounded hover:bg-gray-50 transition-colors">
+                    <IoIosArrowForward size={20} className="sm:w-6 sm:h-6" />
                 </button>
             </div>
         </div>

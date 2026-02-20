@@ -2,13 +2,13 @@ import { FaMapMarkerAlt, FaFacebookF, FaTwitter, FaPinterestP, FaYoutube, FaInst
 
 const Footer = () => {
   return (
-    <footer className="bg-[#143d49] text-white py-6">
-      <div className="max-w-7xl  px-4 flex  flex-row justify-between items-start gap-32 text-sm">
+    <footer className="bg-[#143d49] text-white py-4 sm:py-6">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-8 text-xs sm:text-sm">
         
         {/* Address */}
         <div className="flex items-center gap-2">
           <FaMapMarkerAlt className="text-white" />
-          <span>Rajshahi, Bangladesh</span>
+          <span className="text-center sm:text-left">Rajshahi, Bangladesh</span>
         </div>
 
         {/* Copyright */}
@@ -22,12 +22,12 @@ const Footer = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="flex items-center gap-4">
-          <a href="#"><FaFacebookF /></a>
-          <a href="#"><FaTwitter /></a>
-          <a href="#"><FaPinterestP /></a>
-          <a href="#"><FaYoutube /></a>
-          <a href="#"><FaInstagram /></a>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <a href="#" className="hover:text-gray-300 transition-colors"><FaFacebookF /></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><FaTwitter /></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><FaPinterestP /></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><FaYoutube /></a>
+          <a href="#" className="hover:text-gray-300 transition-colors"><FaInstagram /></a>
         </div>
       </div>
     </footer>

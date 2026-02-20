@@ -72,7 +72,7 @@ const SaleSection = () => {
             className="text-center min-w-[60px]"
           >
             <p className="text-4xl sm:text-5xl">{String(timer[unit]).padStart(2, "0")}</p>
-            <p className="text-red-500 text-sm sm:text-base">{unit.toUpperCase()}</p>
+            <p className="text-[#d44145] text-sm sm:text-base">{unit.toUpperCase()}</p>
           </motion.div>
         ))}
       </div>

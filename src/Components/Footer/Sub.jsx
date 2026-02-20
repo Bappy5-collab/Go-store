@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
     FaTwitter,
     FaInstagram,
@@ -17,9 +18,9 @@ const Sub = () => {
     ];
 
     return (
-        <footer className="relative -mt-32 overflow-hidden bg-gradient-to-r from-pink-500 to-orange-400 text-white px-8 py-16">
+        <footer className="relative -mt-32 overflow-hidden bg-gradient-to-r from-pink-500 to-orange-400 text-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             {/* Main Footer Content */}
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mt-20">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-20">
                 {/* Logo + Description + Socials */}
                 <div>
                     <div className="text-3xl font-bold mb-4">
@@ -44,11 +45,11 @@ const Sub = () => {
                 <div>
                     <h3 className="font-bold text-xl mb-4">Support</h3>
                     <ul className="space-y-2">
-                        <li>About Us</li>
-                        <li>Market Review</li>
-                        <li>Terms of Service</li>
-                        <li>Privacy Policy</li>
-                        <li>Site Map</li>
+                        <li><Link to="/about" className="hover:text-gray-200 transition-colors">About Us</Link></li>
+                        <li><Link to="/faq" className="hover:text-gray-200 transition-colors">FAQ</Link></li>
+                        <li><Link to="/terms" className="hover:text-gray-200 transition-colors">Terms of Service</Link></li>
+                        <li><Link to="/privacy" className="hover:text-gray-200 transition-colors">Privacy Policy</Link></li>
+                        <li><Link to="/contact" className="hover:text-gray-200 transition-colors">Contact Us</Link></li>
                     </ul>
                 </div>
 
@@ -68,11 +69,10 @@ const Sub = () => {
                 <div>
                     <h3 className="font-bold text-xl mb-4">Information</h3>
                     <ul className="space-y-2">
-                        <li>Shipping Policy</li>
-                        <li>Compensation First</li>
-                        <li>My Account</li>
-                        <li>Return Policy</li>
-                        <li>Contact Us</li>
+                        <li><Link to="/faq" className="hover:text-gray-200 transition-colors">Shipping Policy</Link></li>
+                        <li><Link to="/faq" className="hover:text-gray-200 transition-colors">Return Policy</Link></li>
+                        <li><Link to="/cart" className="hover:text-gray-200 transition-colors">My Cart</Link></li>
+                        <li><Link to="/contact" className="hover:text-gray-200 transition-colors">Contact Us</Link></li>
                     </ul>
                 </div>
             </div>

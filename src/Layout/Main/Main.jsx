@@ -15,7 +15,7 @@ import ResponsiveNavbar from "../../Components/Navbar/Navbar";
 
 const Main = () => {
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <SubTop/>
             <Navbar/>
             <Banner></Banner>
@@ -27,9 +27,10 @@ const Main = () => {
             <StatisticsSection/>
              <TestimonialSection/>
             <NewsletterSection/> 
-            <Sub/>
-            <Footer/>
-           
+            <div className="pb-16">
+                <Sub/>
+                <Footer/>
+            </div>
         </div>
     );
 };

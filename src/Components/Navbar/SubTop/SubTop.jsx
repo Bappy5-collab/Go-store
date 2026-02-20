@@ -4,12 +4,7 @@ import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 
 const SubTop = () => {
     return (
-        <div>
-            {/* Top Banner */}
-            <div className="bg-gradient-to-r from-[#DF4979] via-[#E36B31] to-[#E36B31] px-4 py-2 text-white text-center text-sm md:text-md font-semibold">
-                Donate to support families affected by the war in Bangladesh!
-            </div>
-
+        <div className="hidden md:block">
             {/* Info Bar */}
             <div className="border-b-2 px-4 py-3">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0">

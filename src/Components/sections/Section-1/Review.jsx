@@ -29,7 +29,7 @@ const testimonials = [
 ];
 
 const StarRating = ({ count }) => (
-  <div className="flex text-yellow-400 text-lg">
+  <div className="flex text-yellow-400 text-sm sm:text-base md:text-lg">
     {[...Array(count)].map((_, i) => (
       <span key={i}>★</span>
     ))}
@@ -55,37 +55,37 @@ const TestimonialCard = ({ testimonial, direction = 'left' }) => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={animationVariants}
-      className="bg-white rounded-2xl p-6 shadow-sm"
+      className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm"
     >
-      <div className="flex items-center gap-4 mb-2">
+      <div className="flex items-center gap-3 sm:gap-4 mb-2">
         <img
           src={testimonial.image}
           alt={testimonial.name}
-          className="w-12 h-12 rounded-full object-cover"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover flex-shrink-0"
         />
         <div>
-          <h3 className="text-xl font-bold text-black">{testimonial.name}</h3>
+          <h3 className="text-base sm:text-lg md:text-xl font-bold text-black">{testimonial.name}</h3>
           <StarRating count={testimonial.rating} />
         </div>
       </div>
-      <p className="text-gray-700 text-sm mt-2">{testimonial.text}</p>
+      <p className="text-gray-700 text-xs sm:text-sm mt-2">{testimonial.text}</p>
     </motion.div>
   );
 };
 
 const TestimonialSection = () => {
   return (
-   <section className="relative z-10 bg-[#f3f6fb] py-20 px-4 h-[1000px]"> 
+   <section className="relative z-10 bg-[#f3f6fb] py-12 sm:py-16 md:py-20 px-4 min-h-[800px] sm:min-h-[900px] md:h-[1000px]"> 
       {/* Decorative Shapes */}
-      <div className="absolute top-40 left-24 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl "></div>
-      <div className="absolute  right-36 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl "></div>
-      <div className="absolute top-1.5 right-20 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl "></div>
+      <div className="absolute top-20 sm:top-40 left-4 sm:left-12 md:left-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
+      <div className="absolute top-10 sm:top-20 right-4 sm:right-12 md:right-36 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
+      <div className="absolute top-1.5 right-2 sm:right-8 md:right-20 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-14 text-black">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mb-8 sm:mb-12 md:mb-14 text-black px-4">
           Over 1,000 Satisfied Customers With A 5-Star Reviews
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           <TestimonialCard testimonial={testimonials[0]} direction="left" />
 
           <div className="flex flex-col gap-8">

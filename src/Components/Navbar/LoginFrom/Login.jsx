@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { FaUser, FaEye, FaEyeSlash, FaKey } from 'react-icons/fa';
+import { useToast } from '../../Toast/Toast';
+
 const Login = ({ handleClose, open }) => {
+    const { showToast } = useToast();
     const [show, setShow] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
     useEffect(() => {
         if (open) {
             setTimeout(() => setShow(true), 10); // Slight delay to trigger animation
@@ -15,10 +22,9 @@ const Login = ({ handleClose, open }) => {
     if (!open) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
             <div
-                className={`bg-white text-white rounded-lg shadow-lg p-6 w-full max-w-[700px] transform transition-all duration-500 ${show ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
+                className={`bg-white text-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-[700px] mx-4 transform transition-all duration-500 ${show ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
                     }`}
             >
                 <div>
@@ -29,42 +35,62 @@ const Login = ({ handleClose, open }) => {
                     <div>
                         <div className="w-full max-w-full bg-white p-6 rounded-lg  space-y-4">
 
-                            {/* Username Input */}
-                            <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
-                                <input
-                                    type="text"
-                                    placeholder="Username"
-                                    className="bg-transparent w-full outline-none text-gray-700"
-                                />
-                                <FaUser className="text-gray-400" />
-                            </div>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                if (formData.username && formData.password) {
+                                    showToast('Login successful!', 'success');
+                                    setTimeout(() => handleClose(), 1000);
+                                } else {
+                                    showToast('Please fill in all fields', 'warning');
+                                }
+                            }}>
+                                {/* Username Input */}
+                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={(e) => setFormData({...formData, username: e.target.value})}
+                                        placeholder="Username"
+                                        className="bg-transparent w-full outline-none text-gray-700"
+                                    />
+                                    <FaUser className="text-gray-400" />
+                                </div>
 
-                            {/* Password Input */}
-                            <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder="Password"
-                                    className="bg-transparent w-full outline-none text-gray-700"
-                                />
-                                <button onClick={() => setShowPassword(!showPassword)} type="button">
-                                    {showPassword ? (
-                                        <FaEyeSlash className="text-gray-400" />
-                                    ) : (
-                                        <FaEye className="text-gray-400" />
-                                    )}
+                                {/* Password Input */}
+                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                        placeholder="Password"
+                                        className="bg-transparent w-full outline-none text-gray-700"
+                                    />
+                                    <button onClick={() => setShowPassword(!showPassword)} type="button">
+                                        {showPassword ? (
+                                            <FaEyeSlash className="text-gray-400" />
+                                        ) : (
+                                            <FaEye className="text-gray-400" />
+                                        )}
+                                    </button>
+                                </div>
+
+                                {/* Web Authentication */}
+                                <button 
+                                    type="button"
+                                    onClick={() => showToast('Web authentication feature coming soon!', 'info')}
+                                    className="w-full bg-gray-600 text-white py-3 rounded-md flex items-center justify-center gap-2 hover:bg-gray-700"
+                                >
+                                    <FaKey />
+                                    Web Authentication
                                 </button>
-                            </div>
 
-                            {/* Web Authentication */}
-                            <button className="w-full bg-gray-600 text-white py-3 rounded-md flex items-center justify-center gap-2 hover:bg-gray-700">
-                                <FaKey />
-                                Web Authentication
-                            </button>
-
-                            {/* Log In */}
-                            <button className="w-full py-3 rounded-md text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 hover:opacity-90">
-                                Log In
-                            </button>
+                                {/* Log In */}
+                                <button type="submit" className="w-full py-3 rounded-md text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 hover:opacity-90">
+                                    Log In
+                                </button>
+                            </form>
 
                             {/* Bottom Links */}
                             <div className="flex justify-between items-start text-xs text-gray-600">

@@ -10,20 +10,20 @@ const NewsletterSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.3 }}
-        className="-mt-72 z-20 relative bg-[#fbeee6] md:px-12 lg:p-6 rounded-b-2xl flex flex-col md:flex-row items-center justify-between min-h-[600px] overflow-hidden"
+        className="-mt-32 sm:-mt-48 md:-mt-64 lg:-mt-72 z-20 relative bg-[#fbeee6] px-4 sm:px-6 md:px-12 lg:p-6 rounded-b-2xl flex flex-col md:flex-row items-center justify-between min-h-[400px] sm:min-h-[500px] md:min-h-[600px] overflow-hidden"
       >
         {/* Left Text Block */}
-        <div className="md:w-1/2 space-y-6 text-center md:text-left z-10">
-          <button className="bg-gradient-to-r from-pink-500 to-orange-400 text-white text-sm font-semibold px-4 py-2 rounded">
+        <div className="md:w-1/2 space-y-4 sm:space-y-6 text-center md:text-left z-10 py-6 sm:py-8 md:py-0">
+          <button className="bg-gradient-to-r from-pink-500 to-orange-400 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded">
             SIGNUP FOR NEWSLETTER
           </button>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
             Don't Miss Out On <br />
             <span className="text-black">Exciting Promotions</span>
           </h2>
 
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
 

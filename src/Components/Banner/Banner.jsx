@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Modal from './Tranding/Modal';
 
 const slides = [
@@ -24,6 +25,7 @@ const slides = [
 ];
 
 const IphoneCarousel = () => {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,8 +40,8 @@ const IphoneCarousel = () => {
   }, []);
 
   return (
-    <div className="bg-[#EAEDEF] relative overflow-hidden py-12 px-4 sm:px-6 md:px-12 lg:px-20 flex justify-center items-center">
-      <div className="max-w-screen-xl w-full flex flex-col lg:flex-row justify-between items-center gap-10">
+    <div className="bg-[#EAEDEF] relative overflow-x-hidden py-12 px-4 sm:px-6 md:px-12 lg:px-20 flex justify-center items-center w-full">
+      <div className="max-w-screen-xl w-full flex flex-col lg:flex-row justify-between items-center gap-10 overflow-x-hidden">
         <AnimatePresence mode="wait">
           {/* Left Content */}
           <motion.div
@@ -63,7 +65,10 @@ const IphoneCarousel = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-3 sm:gap-4">
-              <button className="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-lg text-sm font-semibold">
+              <button 
+                onClick={() => navigate('/')}
+                className="bg-gradient-to-r from-pink-500 to-orange-400 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+              >
                 Shop Now
               </button>
               <button
@@ -91,19 +96,19 @@ const IphoneCarousel = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.5 }}
-            className="w-full lg:w-1/2 flex justify-center items-center min-h-[280px] sm:min-h-[360px] md:min-h-[400px]"
+            className="w-full lg:w-1/2 flex justify-center items-center min-h-[200px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[400px]"
           >
             <img
               src={slides[current].img}
               alt="phone"
-              className="w-[250px] sm:w-[320px] md:w-[380px] lg:w-[420px] object-contain transition-transform duration-500"
+              className="w-full max-w-[200px] sm:max-w-[280px] md:max-w-[350px] lg:max-w-[420px] h-auto object-contain transition-transform duration-500"
             />
           </motion.div>
         </AnimatePresence>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 lg:right-16 flex gap-3 sm:gap-4 z-10">
+      <div className="absolute bottom-6 sm:bottom-10 right-4 sm:right-6 md:right-10 lg:right-16 flex gap-3 sm:gap-4 z-10">
         <button
           onClick={prevSlide}
           className="w-10 h-10 sm:w-14 sm:h-14 bg-white shadow-md rounded-sm flex items-center justify-center"
