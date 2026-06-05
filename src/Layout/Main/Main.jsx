@@ -27,7 +27,7 @@ const Main = () => {
             <StatisticsSection/>
              <TestimonialSection/>
             <NewsletterSection/> 
-            <div className="pb-16">
+            <div>
                 <Sub/>
                 <Footer/>
             </div>

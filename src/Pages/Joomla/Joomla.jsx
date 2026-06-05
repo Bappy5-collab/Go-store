@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import SubTop from '../../Components/Navbar/SubTop/SubTop';
@@ -81,7 +81,7 @@ const Joomla = () => {
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">About Joomla!</h2>
                     <p className="text-gray-700 leading-relaxed mb-4">
                         Joomla! is a free and open-source content management system (CMS) for publishing web content. 
-                        It is built on a model–view–controller web application framework that can be used independently 
+                        It is built on a modelâ€“viewâ€“controller web application framework that can be used independently 
                         of the CMS.
                     </p>
                     <p className="text-gray-700 leading-relaxed">

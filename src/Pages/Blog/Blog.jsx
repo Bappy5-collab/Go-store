@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import SubTop from '../../Components/Navbar/SubTop/SubTop';
@@ -86,7 +86,7 @@ const Blog = () => {
                                     to="#"
                                     className="text-[#d44145] font-semibold hover:underline"
                                 >
-                                    Read More →
+                                    Read More â†’
                                 </Link>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import SubTop from '../../Components/Navbar/SubTop/SubTop';
@@ -33,7 +33,7 @@ const Pages = () => {
                             </h2>
                             <p className="text-gray-600 mb-4">{page.description}</p>
                             <span className="text-[#d44145] font-semibold group-hover:underline">
-                                Visit Page →
+                                Visit Page â†’
                             </span>
                         </Link>
                     ))}

@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import CottageIcon from '@mui/icons-material/Cottage';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -44,7 +45,9 @@ export default function Navbar() {
             {/* Desktop Menu */}
             <div className="hidden lg:flex gap-12 items-center">
               <div className="flex gap-4 items-center">
-                <div className="flex gap-2 items-center cursor-pointer" onClick={() => navigate('/')}> <CottageIcon /> <h3 className="text-lg">Home</h3></div>
+                <div className="flex gap-2 items-center cursor-pointer hover:text-[#d44145] transition-colors" onClick={() => navigate('/')}> <CottageIcon /> <h3 className="text-lg">Home</h3></div>
+
+                <div className="flex gap-2 items-center cursor-pointer hover:text-[#d44145] transition-colors" onClick={() => navigate('/products')}> <StorefrontIcon /> <h3 className="text-lg">Shop</h3></div>
 
                 {/* Dropdowns */}
                 {[
@@ -203,8 +206,12 @@ export default function Navbar() {
           <div className="lg:hidden mt-5 pb-4 border-t pt-4">
             <div className="flex flex-col gap-3 text-base">
               <div className="flex items-center gap-2 px-2 py-2 hover:bg-gray-100 rounded cursor-pointer" onClick={() => navigate('/')}>
-                <CottageIcon className="text-[#d44145]" /> 
+                <CottageIcon className="text-[#d44145]" />
                 <span className="font-medium">Home</span>
+              </div>
+              <div className="flex items-center gap-2 px-2 py-2 hover:bg-gray-100 rounded cursor-pointer" onClick={() => navigate('/products')}>
+                <StorefrontIcon className="text-[#d44145]" />
+                <span className="font-medium">Shop</span>
               </div>
               {[
                 { name: "Tablets", path: "/tablets" },

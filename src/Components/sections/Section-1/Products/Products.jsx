@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 import ProductCard from "./ProductsCart";
 import { products } from "../../../../data/products";
 
@@ -6,6 +8,7 @@ import { products } from "../../../../data/products";
 const tabs = ["Accessories", "Electronics", "Tablets", "Watches"];
 
 const FeaturedTabs = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState("Tablets");
 
     const filteredProducts = products.filter(p => p.category === activeTab);
@@ -39,6 +42,17 @@ const FeaturedTabs = () => {
     {filteredProducts.map((product) => (
       <ProductCard key={product.id} product={product} />
     ))}
+  </div>
+
+  {/* View All CTA */}
+  <div className="mt-10 flex justify-center">
+    <button
+      onClick={() => navigate('/products')}
+      className="group inline-flex items-center gap-2 rounded-full border-2 border-[#d44145] px-8 py-3 text-sm font-semibold text-[#d44145] transition-all hover:bg-[#d44145] hover:text-white"
+    >
+      View All Products
+      <FaArrowRight className="transition-transform group-hover:translate-x-1" />
+    </button>
   </div>
 </div>
 

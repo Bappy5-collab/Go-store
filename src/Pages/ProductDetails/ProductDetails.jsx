@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaStar, FaRegStar, FaHeart, FaShoppingCart, FaArrowLeft, FaCheck, FaTruck, FaShieldAlt, FaUndo } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -6,9 +6,10 @@ import Navbar from '../../Components/Navbar/Navbar';
 import SubTop from '../../Components/Navbar/SubTop/SubTop';
 import Sub from '../../Components/Footer/Sub';
 import Footer from '../../Components/Footer/Footer';
-import { getProductById } from '../../data/products';
+import { getProductById, products } from '../../data/products';
 import { addToCart } from '../../utils/cartUtils';
 import { useToast } from '../../Components/Toast/Toast';
+import ProductCard from '../../Components/sections/Section-1/Products/ProductsCart';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -18,6 +19,14 @@ const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
     const [isWishlisted, setIsWishlisted] = useState(false);
+
+    // Reset view when navigating between products (e.g. from related products)
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setQuantity(1);
+        setSelectedImage(0);
+        setIsWishlisted(false);
+    }, [id]);
 
     if (!product) {
         return (
@@ -35,10 +44,17 @@ const ProductDetails = () => {
         );
     }
 
-    const { title, image, price, oldPrice, tag, rating, description, deliveryTime, inStock, reviews } = product;
+    const { title, image, price, oldPrice, tag, rating, description, deliveryTime, inStock, reviews, category } = product;
 
     // Generate thumbnail images (using same image for demo, but can be different)
     const thumbnailImages = [image, image, image, image];
+
+    // Related products from the same category (fall back to other products)
+    const relatedProducts = products
+        .filter((p) => p.id !== product.id && p.category === category)
+        .slice(0, 4);
+    const fallbackRelated = products.filter((p) => p.id !== product.id).slice(0, 4);
+    const related = relatedProducts.length > 0 ? relatedProducts : fallbackRelated;
 
     const handleQuantityChange = (delta) => {
         setQuantity(prev => Math.max(1, prev + delta));
@@ -258,7 +274,7 @@ const ProductDetails = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-14 sm:ml-16">{review.comment}</p>
+                                    <p className="text-sm sm:text-base text-gray-700 ml-0 sm:ml-16">{review.comment}</p>
                                 </div>
                             ))}
                         </div>
@@ -268,15 +284,16 @@ const ProductDetails = () => {
                 </div>
 
                 {/* Related Products Section */}
-                <div className="mt-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {/* This would typically show related products */}
-                        <div className="text-center text-gray-500 py-8 col-span-full">
-                            Related products will appear here
+                {related.length > 0 && (
+                    <div className="mt-8">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">You May Also Like</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {related.map((p) => (
+                                <ProductCard key={p.id} product={p} />
+                            ))}
                         </div>
                     </div>
-                </div>
+                )}
             </div>
 
             <div className="mt-16">
