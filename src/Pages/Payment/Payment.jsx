@@ -7,12 +7,16 @@ import Sub from '../../Components/Footer/Sub';
 import Footer from '../../Components/Footer/Footer';
 import { getCart, getCartTotal, clearCart } from '../../utils/cartUtils';
 import { useToast } from '../../Components/Toast/Toast';
+import { useAuth } from '../../Context/AuthContext';
+import { createOrder } from '../../lib/db';
 
 const Payment = () => {
     const navigate = useNavigate();
     const { showToast } = useToast();
+    const { user } = useAuth();
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
+    const [placing, setPlacing] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -38,6 +42,22 @@ const Payment = () => {
         setTotal(getCartTotal());
     }, [navigate]);
 
+    useEffect(() => {
+        if (user?.email) {
+            setFormData((prev) => ({ ...prev, email: prev.email || user.email }));
+        }
+    }, [user]);
+
+    // shipping information er shob field fill hoyeche kina
+    const shippingFields = ['firstName', 'lastName', 'email', 'phone', 'address', 'city', 'zipCode', 'country'];
+    const isShippingComplete = shippingFields.every((field) => formData[field].trim() !== '');
+
+    // payment information er shob field fill hoyeche kina
+    const paymentFields = ['cardNumber', 'cardName', 'expiryDate', 'cvv'];
+    const isPaymentComplete = paymentFields.every((field) => formData[field].trim() !== '');
+
+    const isFormComplete = isShippingComplete && isPaymentComplete;
+
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
@@ -45,14 +65,61 @@ const Payment = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Clear cart after successful payment
-        clearCart();
-        showToast('Payment successful! Your order has been placed.', 'success');
-        setTimeout(() => {
-            navigate('/');
-        }, 1500);
+
+        if (!user) {
+            showToast('Please log in to place an order', 'warning');
+            return;
+        }
+
+        setPlacing(true);
+        try {
+            const subtotal = total;
+            const tax = +(total * 0.1).toFixed(2);
+            const grandTotal = +(total * 1.1).toFixed(2);
+
+            const order = {
+                user_id: user.id,
+                items: cartItems.map((item) => ({
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
+                    quantity: item.quantity,
+                    image: item.image,
+                })),
+                subtotal,
+                tax,
+                total: grandTotal,
+                status: 'paid',
+                shipping_info: {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    address: formData.address,
+                    city: formData.city,
+                    zipCode: formData.zipCode,
+                    country: formData.country,
+                },
+            };
+
+            const { error } = await createOrder(order);
+            if (error) {
+                showToast(error.message || 'Could not save order', 'error');
+                setPlacing(false);
+                return;
+            }
+
+            clearCart();
+            showToast('Payment successful! Your order has been placed.', 'success');
+            setTimeout(() => {
+                navigate('/profile');
+            }, 1500);
+        } catch (err) {
+            showToast(err.message || 'Something went wrong', 'error');
+            setPlacing(false);
+        }
     };
 
     return (
@@ -281,11 +348,34 @@ const Payment = () => {
                             <form onSubmit={handleSubmit}>
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-pink-500 to-orange-400 text-white py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                                    disabled={placing || !isFormComplete || !user}
+                                    className="w-full bg-gradient-to-r from-pink-500 to-orange-400 text-white py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
                                     <FaLock />
-                                    Complete Payment
+                                    {placing ? 'Placing order...' : 'Complete Payment'}
                                 </button>
+                                {!user ? (
+                                    <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 text-center">
+                                        <p className="text-sm text-red-600 font-medium">
+                                            You must be logged in to place an order.
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => navigate('/')}
+                                            className="mt-2 text-sm font-semibold text-[#d44145] hover:underline"
+                                        >
+                                            Go to Home & Log In →
+                                        </button>
+                                    </div>
+                                ) : !isShippingComplete ? (
+                                    <p className="text-center text-sm text-amber-600 mt-3">
+                                        Please fill in all shipping information to continue.
+                                    </p>
+                                ) : !isPaymentComplete && (
+                                    <p className="text-center text-sm text-amber-600 mt-3">
+                                        Please fill in all payment information to continue.
+                                    </p>
+                                )}
                             </form>
                         </div>
                     </div>

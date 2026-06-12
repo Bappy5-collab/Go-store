@@ -14,6 +14,7 @@ import Blog from "../Pages/Blog/Blog";
 import Joomla from "../Pages/Joomla/Joomla";
 import Joomshopping from "../Pages/Joomshopping/Joomshopping";
 import Pages from "../Pages/Pages/Pages";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -78,5 +79,9 @@ export const router = createBrowserRouter([
     {
       path:'/pages',
       element:<Pages></Pages>
+    },
+    {
+      path:'/profile',
+      element:<Profile></Profile>
     }
 ])

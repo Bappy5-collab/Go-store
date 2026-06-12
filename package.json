@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
+    "@supabase/supabase-js": "^2.108.1",
     "framer-motion": "^12.19.1",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.523.0",

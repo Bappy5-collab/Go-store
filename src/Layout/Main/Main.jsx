@@ -9,9 +9,14 @@ import ProductCarousel from './../../Components/sections/Section-1/Products/Prod
 import StatisticsSection from "../../Components/sections/Section-1/SectinFour";
 import TestimonialSection from "../../Components/sections/Section-1/Review";
 import NewsletterSection from "../../Components/sections/Section-1/NewsLatter";
+import ShopByCategory from "../../Components/sections/Section-1/ShopByCategory";
+import FlashSale from "../../Components/sections/Section-1/FlashSale";
+import BrandStrip from "../../Components/sections/Section-1/BrandStrip";
+import BestSellers from "../../Components/sections/Section-1/BestSellers";
+import PromoBanner from "../../Components/sections/Section-1/PromoBanner";
+import BlogPreview from "../../Components/sections/Section-1/BlogPreview";
 import Sub from "../../Components/Footer/Sub";
 import Footer from "../../Components/Footer/Footer";
-import ResponsiveNavbar from "../../Components/Navbar/Navbar";
 
 const Main = () => {
     return (
@@ -20,13 +25,19 @@ const Main = () => {
             <Navbar/>
             <Banner></Banner>
             <SectionOne/>
+            <ShopByCategory/>
             <SectionTow/>
             <FeaturedTabs />
+            <BestSellers/>
+            <FlashSale/>
             <SaleSection/>
             <ProductCarousel/>
+            <BlogPreview/>
+            <PromoBanner/>
+            <BrandStrip/>
             <StatisticsSection/>
-             <TestimonialSection/>
-            <NewsletterSection/> 
+            <TestimonialSection/>
+            <NewsletterSection/>
             <div>
                 <Sub/>
                 <Footer/>

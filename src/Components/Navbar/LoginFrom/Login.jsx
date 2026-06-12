@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import { FaUser, FaEye, FaEyeSlash, FaKey } from 'react-icons/fa';
+import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useToast } from '../../Toast/Toast';
+import { useAuth } from '../../../Context/AuthContext';
 
 const Login = ({ handleClose, open }) => {
     const { showToast } = useToast();
+    const { signIn, signUp } = useAuth();
     const [show, setShow] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isSignup, setIsSignup] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
-        username: '',
+        email: '',
         password: ''
     });
+
     useEffect(() => {
         if (open) {
             setTimeout(() => setShow(true), 10); // Slight delay to trigger animation
@@ -21,6 +26,49 @@ const Login = ({ handleClose, open }) => {
 
     if (!open) return null;
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = formData;
+
+        if (!email || !password) {
+            showToast('Please fill in all fields', 'warning');
+            return;
+        }
+        if (password.length < 6) {
+            showToast('Password must be at least 6 characters', 'warning');
+            return;
+        }
+
+        setSubmitting(true);
+        try {
+            if (isSignup) {
+                const { data, error } = await signUp(email, password);
+                if (error) {
+                    showToast(error.message, 'error');
+                } else if (data?.user && !data?.session) {
+                    // email confirmation on thakle session pawa jay na
+                    showToast('Account created! Check your email to confirm.', 'success');
+                    setTimeout(() => handleClose(), 1500);
+                } else {
+                    showToast('Account created successfully!', 'success');
+                    setTimeout(() => handleClose(), 1000);
+                }
+            } else {
+                const { error } = await signIn(email, password);
+                if (error) {
+                    showToast(error.message, 'error');
+                } else {
+                    showToast('Login successful!', 'success');
+                    setTimeout(() => handleClose(), 1000);
+                }
+            }
+        } catch (err) {
+            showToast(err.message || 'Something went wrong', 'error');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
             <div
@@ -29,42 +77,36 @@ const Login = ({ handleClose, open }) => {
             >
                 <div>
                     <div className='flex justify-between items-center border-b-2 p-2 mb-10'>
-                        <h2 className='text-black'>Login</h2>
-                        <CloseIcon onClick={handleClose} className='text-black' />
+                        <h2 className='text-black'>{isSignup ? 'Create Account' : 'Login'}</h2>
+                        <CloseIcon onClick={handleClose} className='text-black cursor-pointer' />
                     </div>
                     <div>
-                        <div className="w-full max-w-full bg-white p-6 rounded-lg  space-y-4">
+                        <div className="w-full max-w-full bg-white p-6 rounded-lg space-y-4">
 
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-                                if (formData.username && formData.password) {
-                                    showToast('Login successful!', 'success');
-                                    setTimeout(() => handleClose(), 1000);
-                                } else {
-                                    showToast('Please fill in all fields', 'warning');
-                                }
-                            }}>
-                                {/* Username Input */}
-                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
+                            <form onSubmit={handleSubmit}>
+                                {/* Email Input */}
+                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border mb-4">
                                     <input
-                                        type="text"
-                                        name="username"
-                                        value={formData.username}
-                                        onChange={(e) => setFormData({...formData, username: e.target.value})}
-                                        placeholder="Username"
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        placeholder="Email"
+                                        autoComplete="email"
                                         className="bg-transparent w-full outline-none text-gray-700"
                                     />
-                                    <FaUser className="text-gray-400" />
+                                    <FaEnvelope className="text-gray-400" />
                                 </div>
 
                                 {/* Password Input */}
-                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border">
+                                <div className="flex items-center bg-gray-100 px-4 py-3 rounded-md border mb-4">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         value={formData.password}
-                                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                         placeholder="Password"
+                                        autoComplete={isSignup ? 'new-password' : 'current-password'}
                                         className="bg-transparent w-full outline-none text-gray-700"
                                     />
                                     <button onClick={() => setShowPassword(!showPassword)} type="button">
@@ -76,49 +118,48 @@ const Login = ({ handleClose, open }) => {
                                     </button>
                                 </div>
 
-                                {/* Web Authentication */}
-                                <button 
-                                    type="button"
-                                    onClick={() => showToast('Web authentication feature coming soon!', 'info')}
-                                    className="w-full bg-gray-600 text-white py-3 rounded-md flex items-center justify-center gap-2 hover:bg-gray-700"
+                                {/* Submit */}
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    className="w-full py-3 rounded-md text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
-                                    <FaKey />
-                                    Web Authentication
-                                </button>
-
-                                {/* Log In */}
-                                <button type="submit" className="w-full py-3 rounded-md text-white font-semibold bg-gradient-to-r from-pink-500 to-orange-500 hover:opacity-90">
-                                    Log In
+                                    {submitting
+                                        ? 'Please wait...'
+                                        : isSignup ? 'Sign Up' : 'Log In'}
                                 </button>
                             </form>
 
-                            {/* Bottom Links */}
-                            <div className="flex justify-between items-start text-xs text-gray-600">
-                                <div>
-                                    <label className="inline-flex items-center gap-1">
-                                        <input type="checkbox" className="form-checkbox" />
-                                        <span>Remember Me</span>
-                                    </label>
-                                    <div>
-                                        <a href="#" className="hover:underline block">Create An Account</a>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <a href="#" className="hover:underline block">Forgot Your Password?</a>
-                                    <a href="#" className="hover:underline block">Forgot Your Username?</a>
-                                </div>
+                            {/* Toggle Login / Signup */}
+                            <div className="text-center text-sm text-gray-600">
+                                {isSignup ? (
+                                    <span>
+                                        Already have an account?{' '}
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsSignup(false)}
+                                            className="text-pink-600 font-semibold hover:underline"
+                                        >
+                                            Log In
+                                        </button>
+                                    </span>
+                                ) : (
+                                    <span>
+                                        Don't have an account?{' '}
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsSignup(true)}
+                                            className="text-pink-600 font-semibold hover:underline"
+                                        >
+                                            Create An Account
+                                        </button>
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
-
-
             </div>
-
         </div>
     );
 };

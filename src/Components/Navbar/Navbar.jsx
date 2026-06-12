@@ -8,11 +8,74 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
+import { FaArrowRight } from 'react-icons/fa';
 import Login from './LoginFrom/Login';
 import { getCartItemCount, getCartTotal } from '../../utils/cartUtils';
+import { useAuth } from '../../Context/AuthContext';
+import { useToast } from '../Toast/Toast';
+
+// ---- Mega-menu data (data-driven, easy to maintain) ----
+const MENUS = [
+  {
+    title: 'Tablets',
+    path: '/tablets',
+    align: 'left',
+    columns: [
+      { heading: 'Brands', items: ['Samsung', 'Apple', 'Huawei', 'Lenovo'] },
+      { heading: 'Operating System', items: ['Android', 'iOS', 'Windows'] },
+      { heading: 'Accessories', items: ['Tablet Covers', 'Stylus Pens', 'Screen Protectors'] },
+    ],
+    promo: { tag: 'New Arrival', title: 'iPad Pro M4 in stock now', cta: 'Shop Tablets' },
+  },
+  {
+    title: 'Joomla!',
+    path: '/joomla',
+    align: 'left',
+    columns: [
+      { heading: 'Extensions', items: ['Modules', 'Plugins', 'Templates'] },
+      { heading: 'Resources', items: ['Documentation', 'Community', 'Support Forum'] },
+    ],
+  },
+  {
+    title: 'Blog',
+    path: '/blog',
+    align: 'left',
+    columns: [
+      { heading: 'Explore', items: ['Latest Posts', 'Tech News', 'Tips & Tutorials', 'Product Reviews'] },
+    ],
+  },
+  {
+    title: 'Pages',
+    path: '/pages',
+    align: 'right',
+    columns: [
+      {
+        heading: 'Company',
+        items: [
+          { label: 'About Us', path: '/about' },
+          { label: 'FAQ', path: '/faq' },
+          { label: 'Privacy Policy', path: '/privacy' },
+          { label: 'Terms of Service', path: '/terms' },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Joomshopping',
+    path: '/joomshopping',
+    align: 'right',
+    columns: [
+      { heading: 'Categories', items: ['Electronics', 'Clothing', 'Home & Garden'] },
+      { heading: 'Shop Features', items: ['Cart System', 'Checkout', 'Shipping Options'] },
+    ],
+    promo: { tag: 'Deal of the week', title: 'Up to 40% off electronics', cta: 'Grab the deal' },
+  },
+];
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const { showToast } = useToast();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -20,6 +83,15 @@ export default function Navbar() {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleLogout = async () => {
+    const { error } = await signOut();
+    if (error) {
+      showToast(error.message, 'error');
+    } else {
+      showToast('Logged out successfully', 'success');
+    }
+  };
 
   useEffect(() => {
     const updateCart = () => {
@@ -49,126 +121,73 @@ export default function Navbar() {
 
                 <div className="flex gap-2 items-center cursor-pointer hover:text-[#d44145] transition-colors" onClick={() => navigate('/products')}> <StorefrontIcon /> <h3 className="text-lg">Shop</h3></div>
 
-                {/* Dropdowns */}
-                {[
-                  {
-                    title: 'Tablets',
-                    path: '/tablets',
-                    content: (
-                      <div className="grid grid-cols-3 gap-6">
-                        <div>
-                          <h4 className="font-semibold mb-2">Brands</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Samsung</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Apple</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Huawei</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Lenovo</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Operating System</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Android</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">iOS</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Windows</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Accessories</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Tablet Covers</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Stylus Pens</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Screen Protectors</li>
-                          </ul>
-                        </div>
-                      </div>
-                    ),
-                  },
-                  {
-                    title: 'Joomla!',
-                    path: '/joomla',
-                    content: (
-                      <div className="grid grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="font-semibold mb-2">Extensions</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Modules</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Plugins</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Templates</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Resources</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Documentation</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Community</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Support Forum</li>
-                          </ul>
-                        </div>
-                      </div>
-                    ),
-                  },
-                  {
-                    title: 'Blog',
-                    path: '/blog',
-                    content: (
-                      <ul className="space-y-2">
-                        <li className="cursor-pointer hover:text-[#d44145] transition-colors">Latest Posts</li>
-                        <li className="cursor-pointer hover:text-[#d44145] transition-colors">Tech News</li>
-                        <li className="cursor-pointer hover:text-[#d44145] transition-colors">Tips & Tutorials</li>
-                        <li className="cursor-pointer hover:text-[#d44145] transition-colors">Product Reviews</li>
-                      </ul>
-                    ),
-                  },
-                  {
-                    title: 'Pages',
-                    path: '/pages',
-                    content: (
-                      <ul className="space-y-2">
-                        <li onClick={() => navigate('/about')} className="cursor-pointer hover:text-[#d44145] transition-colors">About Us</li>
-                        <li onClick={() => navigate('/faq')} className="cursor-pointer hover:text-[#d44145] transition-colors">FAQ</li>
-                        <li onClick={() => navigate('/privacy')} className="cursor-pointer hover:text-[#d44145] transition-colors">Privacy Policy</li>
-                        <li onClick={() => navigate('/terms')} className="cursor-pointer hover:text-[#d44145] transition-colors">Terms of Service</li>
-                      </ul>
-                    ),
-                  },
-                  {
-                    title: 'Joomshopping',
-                    path: '/joomshopping',
-                    content: (
-                      <div className="grid grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="font-semibold mb-2">Categories</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Electronics</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Clothing</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Home & Garden</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Shop Features</h4>
-                          <ul className="space-y-2">
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Cart System</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Checkout</li>
-                            <li className="cursor-pointer hover:text-[#d44145] transition-colors">Shipping Options</li>
-                          </ul>
-                        </div>
-                      </div>
-                    ),
-                  },
-                ].map(({ title, path, content }) => (
-                  <div className="relative group" key={title}>
-                    <div className="flex gap-1 items-center cursor-pointer" onClick={() => path && navigate(path)}>
-                      <h3 className="text-lg">{title}</h3>
-                      <KeyboardArrowDownIcon />
+                {/* Mega-menu dropdowns */}
+                {MENUS.map((menu) => (
+                  <div className="relative group" key={menu.title}>
+                    <div
+                      className="flex gap-1 items-center cursor-pointer py-2 text-lg transition-colors group-hover:text-[#d44145]"
+                      onClick={() => navigate(menu.path)}
+                    >
+                      <h3>{menu.title}</h3>
+                      <KeyboardArrowDownIcon className="transition-transform duration-300 group-hover:rotate-180" />
                     </div>
-                    <div className="absolute top-full left-0 mt-2 bg-white p-4 sm:p-6 shadow-2xl rounded-md opacity-0 translate-y-4 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out z-50 min-w-[280px] sm:min-w-[300px] max-w-[90vw]">
-                      {content}
+
+                    {/* Panel wrapper — pt-3 makes a hover bridge so the menu doesn't disappear */}
+                    <div
+                      className={`absolute top-full ${menu.align === 'right' ? 'right-0' : 'left-0'} pt-3 z-50
+                        opacity-0 invisible translate-y-2 pointer-events-none
+                        group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto
+                        transition-all duration-300 ease-out`}
+                    >
+                      <div className="bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-5 flex gap-6 w-max max-w-[92vw]">
+                        {/* Link columns (static class names so Tailwind JIT keeps them) */}
+                        <div className={`grid gap-6 ${{ 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3' }[menu.columns.length]}`}>
+                          {menu.columns.map((col) => (
+                            <div key={col.heading} className="min-w-[150px]">
+                              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">{col.heading}</h4>
+                              <ul className="space-y-1">
+                                {col.items.map((item) => {
+                                  const label = typeof item === 'string' ? item : item.label;
+                                  const target = typeof item === 'string' ? menu.path : item.path;
+                                  return (
+                                    <li key={label}>
+                                      <button
+                                        onClick={() => navigate(target)}
+                                        className="group/item flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#d44145] transition-colors"
+                                      >
+                                        <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gray-300 transition-colors group-hover/item:bg-[#d44145]" />
+                                        <span className="whitespace-nowrap">{label}</span>
+                                        <FaArrowRight className="ml-auto text-[10px] opacity-0 -translate-x-1 transition-all group-hover/item:opacity-100 group-hover/item:translate-x-0" />
+                                      </button>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Promo card */}
+                        {menu.promo && (
+                          <div className="hidden xl:flex w-56 flex-col justify-between rounded-xl bg-gradient-to-br from-[#d44145] to-orange-400 p-5 text-white">
+                            <div>
+                              <p className="text-[10px] font-semibold uppercase tracking-widest text-white/80">{menu.promo.tag}</p>
+                              <h4 className="mt-2 text-lg font-bold leading-snug">{menu.promo.title}</h4>
+                            </div>
+                            <button
+                              onClick={() => navigate(menu.path)}
+                              className="mt-5 inline-flex items-center gap-2 self-start rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#d44145] transition hover:gap-3"
+                            >
+                              {menu.promo.cta} <FaArrowRight className="text-[10px]" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
 
-                <h3 className="text-lg cursor-pointer" onClick={() => navigate('/contact')}>Contact</h3>
+                <h3 className="text-lg cursor-pointer py-2 transition-colors hover:text-[#d44145]" onClick={() => navigate('/contact')}>Contact</h3>
               </div>
             </div>
 
@@ -176,9 +195,17 @@ export default function Navbar() {
             <div className="flex gap-2 sm:gap-4 items-center">
               <SearchIcon className="text-[#d44145] cursor-pointer" style={{ width: 24, height: 24 }} />
               <AccountCircleIcon className="text-[#d44145] cursor-pointer hidden sm:block" style={{ width: 24, height: 24 }} />
-              <div className='hidden lg:block cursor-pointer' onClick={handleOpen}>
-                <h3 className='font-semibold text-sm'>Login <br /><span className='text-xs text-gray-400'>or Register</span></h3>
-              </div>
+              {user ? (
+                <div className='hidden lg:block'>
+                  <h3 className='font-semibold text-sm max-w-[140px] truncate cursor-pointer hover:text-[#d44145]' onClick={() => navigate('/profile')}>{user.email}</h3>
+                  <span className='text-xs text-[#d44145] cursor-pointer hover:underline mr-2' onClick={() => navigate('/profile')}>Profile</span>
+                  <span className='text-xs text-gray-400 cursor-pointer hover:underline' onClick={handleLogout}>Logout</span>
+                </div>
+              ) : (
+                <div className='hidden lg:block cursor-pointer' onClick={handleOpen}>
+                  <h3 className='font-semibold text-sm'>Login <br /><span className='text-xs text-gray-400'>or Register</span></h3>
+                </div>
+              )}
               <div className="relative cursor-pointer" onClick={() => navigate('/cart')}>
                 <AddShoppingCartIcon className="text-[#d44145]" style={{ width: 24, height: 24 }} />
                 {cartCount > 0 && (
@@ -233,8 +260,18 @@ export default function Navbar() {
                 <span className="font-medium">Contact</span>
               </div>
               <div className="flex items-center gap-2 px-2 py-2 mt-2 pt-2 border-t">
-                <AccountCircleIcon className="text-[#d44145]" onClick={handleOpen} style={{ width: 24, height: 24 }} />
-                <span className="text-sm font-medium cursor-pointer" onClick={handleOpen}>Login / Register</span>
+                <AccountCircleIcon className="text-[#d44145]" style={{ width: 24, height: 24 }} />
+                {user ? (
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium truncate max-w-[200px] cursor-pointer" onClick={() => navigate('/profile')}>{user.email}</span>
+                    <div className="flex gap-3">
+                      <span className="text-xs text-[#d44145] cursor-pointer hover:underline" onClick={() => navigate('/profile')}>Profile</span>
+                      <span className="text-xs text-gray-400 cursor-pointer hover:underline" onClick={handleLogout}>Logout</span>
+                    </div>
+                  </div>
+                ) : (
+                  <span className="text-sm font-medium cursor-pointer" onClick={handleOpen}>Login / Register</span>
+                )}
               </div>
               <div className="flex items-center gap-2 px-2 py-2 hover:bg-gray-100 rounded cursor-pointer" onClick={() => navigate('/cart')}>
                 <AddShoppingCartIcon className="text-[#d44145]" style={{ width: 20, height: 20 }} />

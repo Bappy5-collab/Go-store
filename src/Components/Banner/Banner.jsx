@@ -55,9 +55,19 @@ const IphoneCarousel = () => {
 
   return (
     <section className="relative overflow-hidden bg-[#0b0f19]">
-      {/* Decorative gradient blobs */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-pink-600/30 to-violet-600/30 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-indigo-600/30 to-orange-500/20 blur-3xl" />
+      {/* Animated decorative gradient blobs */}
+      <motion.div
+        animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-pink-600/30 to-violet-600/30 blur-3xl"
+      />
+      <motion.div
+        animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+        className="pointer-events-none absolute -bottom-32 -right-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-indigo-600/30 to-orange-500/20 blur-3xl"
+      />
+      {/* Dotted grid + soft glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.06),transparent_60%)]" />
 
       <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 py-14 sm:py-20">
@@ -132,6 +142,13 @@ const IphoneCarousel = () => {
           {/* Right image */}
           <div className="relative w-full lg:w-1/2 flex justify-center items-center min-h-[280px] sm:min-h-[360px] lg:min-h-[440px]">
             <div className={`absolute inset-0 m-auto h-64 w-64 sm:h-80 sm:w-80 rounded-full bg-gradient-to-br ${slide.accent} opacity-20 blur-2xl`} />
+            {/* Rotating conic glow ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+              className="pointer-events-none absolute inset-0 m-auto h-72 w-72 sm:h-96 sm:w-96 rounded-full opacity-40 blur-md"
+              style={{ background: 'conic-gradient(from 0deg, transparent, rgba(244,65,69,0.35), transparent 60%)' }}
+            />
             <AnimatePresence mode="wait">
               <motion.img
                 key={slide.img}
@@ -154,6 +171,22 @@ const IphoneCarousel = () => {
             >
               <p className="text-[10px] font-medium uppercase tracking-wide text-gray-400">Best Price</p>
               <p className="text-lg font-bold text-gray-900">{slide.price}</p>
+            </motion.div>
+
+            {/* Floating rating badge (bottom-left), gentle float */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: [0, -8, 0] }}
+              transition={{ opacity: { delay: 0.5 }, y: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}
+              className="absolute bottom-6 left-2 sm:left-6 z-20 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100">
+                <FaShieldAlt className="text-green-600 text-sm" />
+              </span>
+              <div>
+                <p className="text-[10px] font-medium uppercase tracking-wide text-gray-400">In Stock</p>
+                <p className="text-sm font-bold text-gray-900">Ships in 24h</p>
+              </div>
             </motion.div>
           </div>
         </div>
