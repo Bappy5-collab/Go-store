@@ -33,8 +33,9 @@ const SaleSection = () => {
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, ease: "easeOut" }}
   viewport={{ once: true }}
-  className="bg-white mb-20 px-4 sm:px-6 lg:px-12"
+  className="bg-white mb-20 px-4 sm:px-6 lg:px-8 py-12 sm:py-16"
 >
+  <div className="">
   <div className="flex flex-col lg:flex-row items-center gap-10">
     {/* Responsive Image */}
     <motion.img
@@ -77,6 +78,7 @@ const SaleSection = () => {
         ))}
       </div>
     </motion.div>
+  </div>
   </div>
 </motion.div>
 

@@ -47,7 +47,7 @@ const Blog = () => {
         <div className="min-h-screen bg-gray-50">
             <SubTop />
             <Navbar />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-12 pb-16">
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Blog</h1>
                 
                 <div className="mb-8">
@@ -64,7 +64,7 @@ const Blog = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {blogPosts.map((post) => (
                         <div
                             key={post.id}
@@ -86,7 +86,7 @@ const Blog = () => {
                                     to="#"
                                     className="text-[#d44145] font-semibold hover:underline"
                                 >
-                                    Read More â†’
+                                    Read More →
                                 </Link>
                             </div>
                         </div>

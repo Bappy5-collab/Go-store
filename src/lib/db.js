@@ -40,3 +40,14 @@ export const getOrders = async (userId) => {
         .order('created_at', { ascending: false });
     return { data, error };
 };
+
+// ---------- NEWSLETTER ----------
+
+export const subscribeNewsletter = async (email) => {
+    const { data, error } = await supabase
+        .from('subscribers')
+        .insert({ email })
+        .select()
+        .single();
+    return { data, error };
+};

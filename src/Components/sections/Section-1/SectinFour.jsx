@@ -51,7 +51,8 @@ const StatisticsSection = () => {
   }, []);
 
   return (
-   <section id="stats-section" className="bg-white py-10 px-4 sm:px-6 lg:px-12 overflow-hidden">
+   <section id="stats-section" className="bg-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+  <div className="">
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
     
     {/* LEFT CONTENT */}
@@ -117,6 +118,7 @@ const StatisticsSection = () => {
         />
       ))}
     </div>
+  </div>
   </div>
 </section>
 

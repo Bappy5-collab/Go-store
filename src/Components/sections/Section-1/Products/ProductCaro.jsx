@@ -64,7 +64,7 @@ const ProductCarousel = () => {
     const prevSlide = () => setIndex((index - 1 + products.length) % products.length);
 
     return (
-        <div className="relative py-10 bg-slate-50 w-full max-w-7xl mx-auto -mt-80 sm:-mt-60 md:-mt-40 lg:-mt-20 shadow-lg px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+        <div className="relative py-12 sm:py-16 bg-slate-50 w-full -mt-80 sm:-mt-60 md:-mt-40 lg:-mt-20 shadow-lg px-4 sm:px-6 lg:px-8 overflow-x-hidden">
             <div className="flex justify-center items-center gap-2 sm:gap-4 overflow-x-hidden">
                 <button onClick={prevSlide} className="p-2 sm:p-3 bg-white shadow rounded hover:bg-gray-50 transition-colors">
                     <IoIosArrowBack size={20} className="sm:w-6 sm:h-6" />

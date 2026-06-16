@@ -9,12 +9,12 @@ const tabs = ["Accessories", "Electronics", "Tablets", "Watches"];
 
 const FeaturedTabs = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("Tablets");
+    const [activeTab, setActiveTab] = useState("Accessories");
 
     const filteredProducts = products.filter(p => p.category === activeTab);
 
     return (
-     <div className="text-center mb-10 px-4 sm:px-6 lg:px-10">
+     <div className="text-center mb-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
   {/* Heading */}
   <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
     Featured Products

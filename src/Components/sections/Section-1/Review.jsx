@@ -75,13 +75,13 @@ const TestimonialCard = ({ testimonial, direction = 'left' }) => {
 
 const TestimonialSection = () => {
   return (
-   <section className="relative z-10 bg-[#f3f6fb] py-12 sm:py-16 md:py-20 px-4 min-h-[800px] sm:min-h-[900px] md:h-[1000px]"> 
+   <section className="relative z-10 bg-[#f3f6fb] py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 min-h-[800px] sm:min-h-[900px] md:min-h-[1000px]">
       {/* Decorative Shapes */}
       <div className="absolute top-20 sm:top-40 left-4 sm:left-12 md:left-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
       <div className="absolute top-10 sm:top-20 right-4 sm:right-12 md:right-36 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
       <div className="absolute top-1.5 right-2 sm:right-8 md:right-20 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-400 to-orange-300 rounded-xl opacity-50 sm:opacity-100"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10">
         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mb-8 sm:mb-12 md:mb-14 text-black px-4">
           Over 1,000 Satisfied Customers With A 5-Star Reviews
         </h2>

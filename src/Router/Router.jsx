@@ -1,5 +1,6 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Main from "../Layout/Main/Main";
+import ChatBot from "../Components/ChatBot/ChatBot";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 import Cart from "../Pages/Cart/Cart";
@@ -16,12 +17,23 @@ import Joomshopping from "../Pages/Joomshopping/Joomshopping";
 import Pages from "../Pages/Pages/Pages";
 import Profile from "../Pages/Profile/Profile";
 
+// Root layout: renders the active route + a global chatbot on every page
+const RootLayout = () => (
+    <>
+        <Outlet />
+        <ChatBot />
+    </>
+);
+
 export const router = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
     {
       path:'/',
       element:<Main></Main>,
       children:[
-         
+
       ]
     },
     {
@@ -84,4 +96,6 @@ export const router = createBrowserRouter([
       path:'/profile',
       element:<Profile></Profile>
     }
+    ]
+  }
 ])

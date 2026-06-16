@@ -6,26 +6,26 @@ import Modal from './Tranding/Modal';
 
 const slides = [
   {
-    title: 'Best iPhone Collection',
-    highlight: 'Apple Devices',
-    price: '$255',
-    desc: 'Experience the future of mobile technology with our curated collection of premium Apple devices, built for performance.',
+    title: 'Premium Smartphones',
+    highlight: 'Smartphones',
+    price: '$549',
+    desc: 'Discover flagship smartphones with brilliant displays, pro-grade cameras and all-day battery life.',
     img: 'https://i.ibb.co/QF5ND9Mv/slider-1-removebg-preview.png',
     accent: 'from-violet-600 to-indigo-600',
   },
   {
-    title: 'Top Samsung Galaxy Deals',
-    highlight: 'Galaxy Series',
-    price: '$199',
-    desc: 'Explore our best offers on Samsung devices, perfect for every tech lover looking for power and style.',
+    title: 'Wireless Headphones',
+    highlight: 'Headphones',
+    price: '$29',
+    desc: 'Immersive sound, deep bass and all-day comfort. Premium wireless headphones and earbuds on sale now.',
     img: 'https://i.ibb.co/DPdz7WKr/banner-deal-removebg-preview.png',
     accent: 'from-pink-600 to-rose-500',
   },
   {
-    title: 'Premium Google Pixel Picks',
-    highlight: 'Pixel Pro',
-    price: '$229',
-    desc: 'Grab the latest Google Pixel phones with smart AI features, stunning cameras and a premium build.',
+    title: 'Luxury Watch Collection',
+    highlight: 'Watch Collection',
+    price: '$59',
+    desc: 'Smartwatches and classic timepieces that blend style with technology. Find the perfect watch for every wrist.',
     img: 'https://i.ibb.co/qVxWLgR/3.png',
     accent: 'from-amber-500 to-orange-500',
   },
@@ -54,23 +54,25 @@ const IphoneCarousel = () => {
   const slide = slides[current];
 
   return (
-    <section className="relative overflow-hidden bg-[#0b0f19]">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#0a0a1f] via-[#141033] to-[#1d1145]">
       {/* Animated decorative gradient blobs */}
       <motion.div
         animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-pink-600/30 to-violet-600/30 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 blur-3xl"
       />
       <motion.div
         animate={{ x: [0, -30, 0], y: [0, -20, 0] }}
         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
-        className="pointer-events-none absolute -bottom-32 -right-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-indigo-600/30 to-orange-500/20 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-r from-indigo-600/30 to-amber-400/20 blur-3xl"
       />
+      {/* Subtle premium gold sheen */}
+      <div className="pointer-events-none absolute top-1/3 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-amber-300/5 blur-3xl" />
       {/* Dotted grid + soft glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.06),transparent_60%)]" />
 
-      <div className="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-12 py-14 sm:py-20">
+      <div className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-6">
           {/* Left content */}
           <div className="w-full lg:w-1/2 text-center lg:text-left">
@@ -82,12 +84,7 @@ const IphoneCarousel = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-medium text-white/90 backdrop-blur">
-                  <span className="h-2 w-2 rounded-full bg-pink-500 animate-pulse" />
-                  This week only — Big Sale
-                </span>
-
-                <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] text-white">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] text-white">
                   {slide.title.split(slide.highlight)[0]}
                   <span className={`bg-gradient-to-r ${slide.accent} bg-clip-text text-transparent`}>
                     {slide.highlight}
@@ -140,13 +137,13 @@ const IphoneCarousel = () => {
           </div>
 
           {/* Right image */}
-          <div className="relative w-full lg:w-1/2 flex justify-center items-center min-h-[280px] sm:min-h-[360px] lg:min-h-[440px]">
-            <div className={`absolute inset-0 m-auto h-64 w-64 sm:h-80 sm:w-80 rounded-full bg-gradient-to-br ${slide.accent} opacity-20 blur-2xl`} />
+          <div className="relative w-full lg:w-1/2 flex justify-center items-center min-h-[360px] sm:min-h-[460px] lg:min-h-[560px]">
+            <div className={`absolute inset-0 m-auto h-72 w-72 sm:h-96 sm:w-96 lg:h-[30rem] lg:w-[30rem] rounded-full bg-gradient-to-br ${slide.accent} opacity-20 blur-2xl`} />
             {/* Rotating conic glow ring */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
-              className="pointer-events-none absolute inset-0 m-auto h-72 w-72 sm:h-96 sm:w-96 rounded-full opacity-40 blur-md"
+              className="pointer-events-none absolute inset-0 m-auto h-80 w-80 sm:h-[26rem] sm:w-[26rem] lg:h-[32rem] lg:w-[32rem] rounded-full opacity-40 blur-md"
               style={{ background: 'conic-gradient(from 0deg, transparent, rgba(244,65,69,0.35), transparent 60%)' }}
             />
             <AnimatePresence mode="wait">
@@ -158,7 +155,7 @@ const IphoneCarousel = () => {
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.85, rotate: 4 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="relative z-10 h-[240px] w-full sm:h-[320px] md:h-[380px] lg:h-[420px] object-contain drop-shadow-2xl"
+                className="relative z-10 h-[320px] w-full sm:h-[420px] md:h-[500px] lg:h-[560px] object-contain drop-shadow-2xl"
               />
             </AnimatePresence>
 

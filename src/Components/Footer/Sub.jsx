@@ -18,9 +18,24 @@ const Sub = () => {
     ];
 
     return (
-        <footer className="relative -mt-32 overflow-hidden bg-gradient-to-r from-pink-500 to-orange-400 text-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <footer className="relative  overflow-hidden bg-gradient-to-r from-pink-500 to-orange-400 text-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             {/* Main Footer Content */}
-            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-20">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 {/* Logo + Description + Socials */}
                 <div>
                     <div className="text-3xl font-bold mb-4">

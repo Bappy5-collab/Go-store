@@ -18,40 +18,66 @@ const ShopByCategory = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="px-4 sm:px-6 lg:px-16 py-8 mb-20">
-            <div className="mb-10 text-center">
-                <span className="text-sm font-semibold uppercase tracking-wider text-pink-500">Browse</span>
-                <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
-                    Shop by Category
-                </h2>
-                <p className="mx-auto mt-3 max-w-xl text-sm sm:text-base text-gray-500">
-                    Find exactly what you need from our handpicked collections.
-                </p>
+        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 mb-20">
+            {/* Header */}
+            <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+                        Shop by Category
+                    </h2>
+                    <p className="mt-2 max-w-xl text-sm sm:text-base text-gray-500">
+                        Explore our handpicked collections, crafted for every need.
+                    </p>
+                </div>
+                <button
+                    onClick={() => navigate('/products')}
+                    className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border-2 border-[#d44145] px-6 py-2.5 text-sm font-semibold text-[#d44145] transition-all hover:bg-[#d44145] hover:text-white"
+                >
+                    View All <FaArrowRight className="text-xs transition-transform group-hover:translate-x-1" />
+                </button>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {/* Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {categories.map((cat, i) => (
                     <motion.button
                         key={cat.name}
                         onClick={() => navigate('/products')}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 40 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.5, delay: i * 0.1 }}
-                        className="group relative overflow-hidden rounded-2xl bg-gray-100 p-5 text-left shadow-sm transition hover:shadow-xl"
+                        whileHover={{ y: -8 }}
+                        className="group relative aspect-[3/4] overflow-hidden rounded-3xl text-left shadow-md ring-1 ring-black/5 transition-shadow duration-300 hover:shadow-2xl"
                     >
-                        <div className="relative z-10">
-                            <p className="text-xs font-medium text-gray-500">{cat.count} products</p>
-                            <h3 className="mt-1 text-lg font-bold text-gray-900">{cat.name}</h3>
-                            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-pink-500 transition group-hover:gap-2">
-                                Shop now <FaArrowRight className="text-xs" />
-                            </span>
-                        </div>
+                        {/* Background image */}
                         <img
                             src={cat.image}
                             alt={cat.name}
-                            className="pointer-events-none absolute -bottom-4 -right-4 h-24 w-24 rounded-xl object-cover opacity-80 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 sm:h-28 sm:w-28"
+                            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                         />
+                        {/* Gradient overlays */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                        {/* Count chip (top) */}
+                        <span className="absolute left-4 top-4 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white backdrop-blur-md ring-1 ring-white/20">
+                            {cat.count} items
+                        </span>
+
+                        {/* Content (bottom) */}
+                        <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                            <h3 className="text-lg sm:text-xl font-bold text-white drop-shadow">{cat.name}</h3>
+                            <div className="mt-2 flex items-center gap-2 text-sm font-semibold text-white/90">
+                                <span className="transition-all duration-300 group-hover:tracking-wide">Shop now</span>
+                                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#d44145] transition-transform duration-300 group-hover:translate-x-1">
+                                    <FaArrowRight className="text-xs" />
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Glow border on hover */}
+                        <div className="pointer-events-none absolute inset-0 rounded-3xl ring-2 ring-violet-400/0 transition-all duration-500 group-hover:ring-violet-400/60" />
                     </motion.button>
                 ))}
             </div>

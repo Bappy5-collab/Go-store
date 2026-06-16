@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         <>
             <div 
                 onClick={handleCardClick}
-                className="border rounded-md p-4 relative group shadow-sm hover:shadow-md transition duration-300 overflow-hidden cursor-pointer"
+                className="border rounded-md p-4 relative group shadow-sm hover:shadow-md transition duration-300 overflow-hidden cursor-pointer h-full flex flex-col"
             >
                 {/* Bottom Line Bar */}
                 <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#d44145] group-hover:w-full transition-all duration-500"></div>
@@ -76,7 +76,7 @@ const ProductCard = ({ product }) => {
                 />
 
                 {/* Title */}
-                <h3 className="text-sm font-medium text-center">{title}</h3>
+                <h3 className="text-sm font-medium text-center line-clamp-2 min-h-[2.5rem]">{title}</h3>
 
                 {/* Rating */}
                 <div className="flex justify-center mt-2 text-yellow-400">

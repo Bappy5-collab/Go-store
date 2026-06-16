@@ -53,7 +53,7 @@ const Cart = () => {
             <div className="min-h-screen bg-gray-50">
                 <SubTop />
                 <Navbar />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-20">
+                <div className="px-4 sm:px-6 lg:px-8 py-8 pb-16">
                     <div className="text-center">
                         <FaShoppingCart className="mx-auto text-gray-400 text-6xl mb-4" />
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">Your Cart is Empty</h2>
@@ -78,7 +78,7 @@ const Cart = () => {
         <div className="min-h-screen bg-gray-50">
             <SubTop />
             <Navbar />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-8 pb-16">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <button

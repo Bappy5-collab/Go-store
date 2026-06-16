@@ -6,8 +6,8 @@ const SubTop = () => {
     return (
         <div className="hidden md:block">
             {/* Info Bar */}
-            <div className="border-b-2 px-4 py-3">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0">
+            <div className="border-b-2">
+                <div className="px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0">
                     {/* Left Section: Icons */}
                     <div className="flex flex-wrap gap-4 items-center text-sm text-gray-600">
                         <div className="flex items-center gap-1">

@@ -10,7 +10,7 @@ const Joomla = () => {
         <div className="min-h-screen bg-gray-50">
             <SubTop />
             <Navbar />
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-12 pb-16">
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Joomla!</h1>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -81,7 +81,7 @@ const Joomla = () => {
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">About Joomla!</h2>
                     <p className="text-gray-700 leading-relaxed mb-4">
                         Joomla! is a free and open-source content management system (CMS) for publishing web content. 
-                        It is built on a modelâ€“viewâ€“controller web application framework that can be used independently 
+                        It is built on a model–view–controller web application framework that can be used independently
                         of the CMS.
                     </p>
                     <p className="text-gray-700 leading-relaxed">

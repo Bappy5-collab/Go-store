@@ -2,8 +2,8 @@ import { FaMapMarkerAlt, FaFacebookF, FaTwitter, FaPinterestP, FaYoutube, FaInst
 
 const Footer = () => {
   return (
-    <footer className="bg-[#143d49] text-white py-4 sm:py-6 ">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-8 text-xs sm:text-sm">
+    <footer className="bg-[#143d49] text-white py-4 sm:py-6">
+      <div className="px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-8 text-xs sm:text-sm">
         
         
         {/* Address */}

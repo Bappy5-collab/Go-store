@@ -82,3 +82,19 @@ create policy "Users can create own orders"
 insert into public.profiles (id)
 select id from auth.users
 on conflict (id) do nothing;
+
+-- ---------- 5. NEWSLETTER SUBSCRIBERS table ----------
+-- newsletter form theke email gula ekhane jma hobe
+create table if not exists public.subscribers (
+  id          uuid primary key default gen_random_uuid(),
+  email       text not null unique,
+  created_at  timestamptz default now()
+);
+
+alter table public.subscribers enable row level security;
+
+-- je keu (anon visitor o) subscribe korte parbe
+drop policy if exists "Anyone can subscribe" on public.subscribers;
+create policy "Anyone can subscribe"
+  on public.subscribers for insert
+  with check (true);

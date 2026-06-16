@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -10,6 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import { FaArrowRight } from 'react-icons/fa';
 import Login from './LoginFrom/Login';
+import { products } from '../../data/products';
 import { getCartItemCount, getCartTotal } from '../../utils/cartUtils';
 import { useAuth } from '../../Context/AuthContext';
 import { useToast } from '../Toast/Toast';
@@ -81,6 +82,64 @@ export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
 
+  // ---- Global product search ----
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef(null);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return products
+      .filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q)
+      )
+      .slice(0, 6);
+  }, [searchQuery]);
+
+  const openSearch = () => setSearchOpen(true);
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setSearchQuery('');
+  };
+
+  // Focus the input as soon as the search panel opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  // Close search on Escape
+  useEffect(() => {
+    if (!searchOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeSearch();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [searchOpen]);
+
+  const goToResults = () => {
+    const q = searchQuery.trim();
+    if (!q) return;
+    navigate(`/products?search=${encodeURIComponent(q)}`);
+    closeSearch();
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    goToResults();
+  };
+
+  const goToProduct = (id) => {
+    navigate(`/product/${id}`);
+    closeSearch();
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -105,7 +164,7 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-white shadow-md z-50 relative">
-      <div className='p-4'>
+      <div className='px-4 sm:px-6 lg:px-8 py-4'>
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center gap-2 sm:gap-4">
@@ -193,7 +252,7 @@ export default function Navbar() {
 
             {/* Right Side Icons */}
             <div className="flex gap-2 sm:gap-4 items-center">
-              <SearchIcon className="text-[#d44145] cursor-pointer" style={{ width: 24, height: 24 }} />
+              <SearchIcon onClick={openSearch} className="text-[#d44145] cursor-pointer" style={{ width: 24, height: 24 }} />
               <AccountCircleIcon className="text-[#d44145] cursor-pointer hidden sm:block" style={{ width: 24, height: 24 }} />
               {user ? (
                 <div className='hidden lg:block'>
@@ -281,6 +340,88 @@ export default function Navbar() {
           </div>
         )}
       </div>
+
+      {/* ---- Global Search Overlay ---- */}
+      {searchOpen && (
+        <div className="fixed inset-0 z-[100] flex justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={closeSearch}
+          />
+
+          {/* Search panel */}
+          <div className="relative w-full max-w-2xl mx-4 mt-20 h-fit">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-2xl"
+            >
+              <SearchIcon className="text-[#d44145]" style={{ width: 24, height: 24 }} />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for products..."
+                className="flex-1 bg-transparent text-base outline-none placeholder:text-gray-400"
+              />
+              <button
+                type="button"
+                onClick={closeSearch}
+                className="text-gray-400 hover:text-[#d44145]"
+                aria-label="Close search"
+              >
+                <CloseIcon />
+              </button>
+            </form>
+
+            {/* Results dropdown */}
+            {searchQuery.trim() && (
+              <div className="mt-3 overflow-hidden rounded-2xl bg-white shadow-2xl">
+                {searchResults.length > 0 ? (
+                  <>
+                    <ul className="max-h-[60vh] overflow-y-auto divide-y divide-gray-100">
+                      {searchResults.map((product) => (
+                        <li key={product.id}>
+                          <button
+                            onClick={() => goToProduct(product.id)}
+                            className="flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-gray-50"
+                          >
+                            <img
+                              src={product.image}
+                              alt={product.title}
+                              className="h-12 w-12 flex-shrink-0 rounded-md object-cover"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-sm font-medium text-gray-900">{product.title}</p>
+                              <p className="text-xs text-gray-400">{product.category}</p>
+                            </div>
+                            <span className="flex-shrink-0 text-sm font-semibold text-[#d44145]">
+                              ${product.price.toFixed(2)}
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={goToResults}
+                      className="flex w-full items-center justify-center gap-2 border-t border-gray-100 bg-gray-50 py-3 text-sm font-semibold text-[#d44145] transition hover:bg-gray-100"
+                    >
+                      View all results for "{searchQuery.trim()}" <FaArrowRight className="text-xs" />
+                    </button>
+                  </>
+                ) : (
+                  <div className="px-4 py-8 text-center">
+                    <p className="text-sm font-medium text-gray-800">No products found</p>
+                    <p className="mt-1 text-xs text-gray-400">Try a different keyword.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <Login open={open} setOpen={setOpen} handleClose={handleClose} />
     </div>
   );

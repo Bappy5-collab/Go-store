@@ -13,7 +13,7 @@ const Modal = ({ open, setOpen,handlClose }) => {
 
     if (!open) return null;
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black bg-opacity-60 p-4">
             <div className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden">
                 <div className='flex justify-end p-2'>
                     <button onClick={handlClose} className="text-white hover:text-gray-300 transition-colors">

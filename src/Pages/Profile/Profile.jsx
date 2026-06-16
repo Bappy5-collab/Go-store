@@ -103,7 +103,7 @@ const Profile = () => {
         <div className="min-h-screen bg-gray-50">
             <SubTop />
             <Navbar />
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-8 pb-16">
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">My Account</h1>
 
                 {/* Summary cards */}
@@ -165,7 +165,7 @@ const Profile = () => {
                                                 type="text"
                                                 value={form[f.name]}
                                                 onChange={(e) => setForm({ ...form, [f.name]: e.target.value })}
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#d44145] focus:border-transparent"
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#d44145] focus:border-transparent"
                                             />
                                         </div>
                                     ))}

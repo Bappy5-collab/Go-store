@@ -9,7 +9,7 @@ const About = () => {
         <div className="min-h-screen bg-gray-50">
             <SubTop />
             <Navbar />
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-12 pb-16">
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">About Us</h1>
                 <div className="bg-white rounded-lg shadow-md p-6 sm:p-8 space-y-6">
                     <p className="text-gray-700 leading-relaxed">

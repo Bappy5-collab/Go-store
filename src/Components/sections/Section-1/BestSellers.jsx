@@ -12,7 +12,7 @@ const BestSellers = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="px-4 sm:px-6 lg:px-16 py-8 mb-20">
+        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 mb-20">
             <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
                     <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-pink-500">

@@ -8,7 +8,7 @@ const loop = [...brands, ...brands];
 
 const BrandStrip = () => {
     return (
-        <section className="px-4 sm:px-6 lg:px-16 py-8 mb-20">
+        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 mb-20">
             <p className="mb-6 text-center text-sm font-medium uppercase tracking-wider text-gray-400">
                 Trusted by leading brands
             </p>

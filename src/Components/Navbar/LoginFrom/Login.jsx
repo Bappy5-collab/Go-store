@@ -70,13 +70,13 @@ const Login = ({ handleClose, open }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black bg-opacity-60 p-4">
             <div
-                className={`bg-white text-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-[700px] mx-4 transform transition-all duration-500 ${show ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
+                className={`bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-[700px] mx-4 transform transition-all duration-500 ${show ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'
                     }`}
             >
                 <div>
-                    <div className='flex justify-between items-center border-b-2 p-2 mb-10'>
+                    <div className='flex justify-between items-center border-b-2 p-2 mb-6'>
                         <h2 className='text-black'>{isSignup ? 'Create Account' : 'Login'}</h2>
                         <CloseIcon onClick={handleClose} className='text-black cursor-pointer' />
                     </div>

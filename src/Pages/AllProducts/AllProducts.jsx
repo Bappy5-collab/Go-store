@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaSearch, FaThLarge, FaTimes, FaStar, FaSlidersH } from 'react-icons/fa';
 import Navbar from '../../Components/Navbar/Navbar';
@@ -35,8 +36,14 @@ const sortOptions = [
 ];
 
 const AllProducts = () => {
+    const [searchParams] = useSearchParams();
     const [activeCategory, setActiveCategory] = useState('All');
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(searchParams.get('search') || '');
+
+    // Sync search box with the ?search= query param coming from the navbar
+    useEffect(() => {
+        setSearch(searchParams.get('search') || '');
+    }, [searchParams]);
     const [sort, setSort] = useState('featured');
     const [maxPrice, setMaxPrice] = useState(priceBounds.max);
     const [minRating, setMinRating] = useState(0);
@@ -228,7 +235,7 @@ const AllProducts = () => {
             {/* Hero strip */}
             <div className="relative overflow-hidden bg-[#0b0f19]">
                 <div className="pointer-events-none absolute -top-20 -right-16 h-64 w-64 rounded-full bg-gradient-to-r from-pink-600/30 to-violet-600/30 blur-3xl" />
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div className="relative px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
                     <p className="text-sm font-medium text-pink-400">Go Store / Shop</p>
                     <h1 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
                         All Products
@@ -240,7 +247,7 @@ const AllProducts = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-8 pb-16">
                 <div className="flex flex-col gap-8 lg:flex-row">
                     {/* ---- Left filter sidebar (sticky on scroll) ---- */}
                     <aside className="hidden lg:block w-64 flex-shrink-0 self-start sticky top-4">
